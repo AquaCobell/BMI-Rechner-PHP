@@ -71,6 +71,8 @@
                 />
             </div>
 
+
+
             <div class="col-sm-4 form-group">
                 <label for="Messdatum">Messdatum*</label>
                 <input type="date"
@@ -83,16 +85,14 @@
             </div>
 
             <div class="col-sm-4 form-group">
-                <h4>Info zum BMI</h4>
-                <p1>Unter 18.5 Untergewicht     </p1> <br>
-                <p1>18.5 – 24.9 Normal          </p1> <br>
-                <p1>25.0 – 29.9 Übergewicht     </p1> <br>
-                <p1>30.0 und darüber Adipositas </p1>
+                <div class = "sidebar_div">
+                    <h4>Info zum BMI</h4>
+                    <p1>Unter 18.5 Untergewicht     </p1> <br>
+                    <p1>18.5 – 24.9 Normal          </p1> <br>
+                    <p1>25.0 – 29.9 Übergewicht     </p1> <br>
+                    <p1>30.0 und darüber Adipositas </p1>
+                </div>
             </div>
-
-
-
-
         </div>
 
         <div class="row">
@@ -125,9 +125,11 @@
             </div>
 
 
-
-
         </div>
+
+
+
+
 
         <div class="row mt-3">
 
@@ -142,9 +144,7 @@
             <div class="col-sm-3">
                 <a href="index.php" class="btn btn-secondary btn-block">Löschen</a>
             </div>
-
         </div>
-
     </form>
 
 
