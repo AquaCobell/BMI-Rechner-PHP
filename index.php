@@ -17,6 +17,41 @@
 
 <div class="container">
 
+    <?php
+
+
+    require "lib/func.inc.php"; //todo
+
+    //VAR
+    $name = "";
+    $email = "";
+    $examDate = "";
+    $grade = "";
+    $subject = "";
+
+    // Formularverarbeitung (HTTP POST Request)
+    if (isset($_POST['submit'])) {
+
+        // double-check: zuerst pruefen ob die Daten im Request enthalten sein, dann auslesen
+        $name = isset($_POST['name']) ? $_POST['name'] : ""; //check if not null
+        $email = isset($_POST['email']) ? $_POST['email'] : "";
+        $examDate = isset($_POST['examDate']) ? $_POST['examDate'] : "";
+        $grade = isset($_POST['grade']) ? $_POST['grade'] : "";
+        $subject = isset($_POST['subject']) ? $_POST['subject'] : "";
+
+        // Validierung der Daten und Ausgabe des Ergebnisses (an der aktuellen Stelle in der HTML-Seite)
+        if (validate($name, $email, $examDate, $subject, $grade)) {
+            echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+        } else {
+            echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
+            foreach ($errors as $key => $value) {
+                echo "<li>" . $value . "</li>";
+            }
+            echo "</ul></div>";
+        }
+    }
+
+    ?>
     <h1 class = "mt-1 mb-1">Body-Mass-Index-Rechner</h1>
     <form id="form_grade" action="index.php" method="post">
 
@@ -34,11 +69,11 @@
             </div>
 
             <div class="col-sm-4 form-group">
-                <label for="examDate">Messdatum*</label>
+                <label for="Messdatum">Messdatum*</label>
                 <input type="date"
                        name="Messdatum"
                        class="form-control <?= isset($errors['Messdatum']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($examDate) ?>"
+                       value="<?= htmlspecialchars($Messdatum) ?>"
                        onchange="validateMessDate(this)"
                        required="required"
                 />
