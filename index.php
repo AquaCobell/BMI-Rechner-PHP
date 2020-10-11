@@ -9,7 +9,7 @@
 
     <title>BMI</title>
 
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
 
 
 </head>
@@ -17,27 +17,30 @@
 
 <div class="container">
 
+
+    <h1 class = "mt-1 mb-1">Body-Mass-Index-Rechner</h1>
+
     <?php
 
 
-    require "lib/func.inc.php"; //todo
+    require "lib/func.php";
 
     //VAR
     $name = "";
-    $email = "";
-    $examDate = "";
-    $grade = "";
-    $subject = "";
+    $groesse = "";
+    $messdatum = "";
+    $gewicht = "";
+
 
     // Formularverarbeitung (HTTP POST Request)
     if (isset($_POST['submit'])) {
 
         // double-check: zuerst pruefen ob die Daten im Request enthalten sein, dann auslesen
         $name = isset($_POST['name']) ? $_POST['name'] : ""; //check if not null
-        $email = isset($_POST['email']) ? $_POST['email'] : "";
-        $examDate = isset($_POST['examDate']) ? $_POST['examDate'] : "";
-        $grade = isset($_POST['grade']) ? $_POST['grade'] : "";
-        $subject = isset($_POST['subject']) ? $_POST['subject'] : "";
+        $groesse = isset($_POST['groesse']) ? $_POST['groessel'] : "";
+        $messdatum = isset($_POST['messdatum']) ? $_POST['messdatum'] : "";
+        $gewicht = isset($_POST['gewicht']) ? $_POST['gewicht'] : "";
+
 
         // Validierung der Daten und Ausgabe des Ergebnisses (an der aktuellen Stelle in der HTML-Seite)
         if (validate($name, $email, $examDate, $subject, $grade)) {
@@ -52,10 +55,10 @@
     }
 
     ?>
-    <h1 class = "mt-1 mb-1">Body-Mass-Index-Rechner</h1>
     <form id="form_grade" action="index.php" method="post">
-
+        <
         <div class="row">
+
 
             <div class="col-sm-4 form-group">
                 <label for="name">Name*</label>
@@ -73,8 +76,8 @@
                 <input type="date"
                        name="Messdatum"
                        class="form-control <?= isset($errors['Messdatum']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($Messdatum) ?>"
-                       onchange="validateMessDate(this)"
+                       value="<?= htmlspecialchars($messdatum) ?>"
+                       onchange="validateMessdatum(this)"
                        required="required"
                 />
             </div>
@@ -99,8 +102,8 @@
                 <label for="Groesse">Größe (cm)*</label>
                 <input type="number"
                        name="Groesse"
-                       class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($grade) ?>"
+                       class="form-control <?= isset($errors['Groesse']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($groesse) ?>"
                        required="required"
                        min = "1"
                        max = "300"
@@ -113,8 +116,8 @@
                 <label for="Gewicht">Gewicht (kg)*</label>
                 <input type="number"
                        name="Gewicht"
-                       class="form-control <?= isset($errors['grade']) ? 'is-invalid' : '' ?>"
-                       value="<?= htmlspecialchars($grade) ?>"
+                       class="form-control <?= isset($errors['gewicht']) ? 'is-invalid' : '' ?>"
+                       value="<?= htmlspecialchars($gewicht) ?>"
                        min="1"
                        max="300"
                        required="required"
