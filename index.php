@@ -30,6 +30,7 @@
     $groesse = "";
     $messdatum = "";
     $gewicht = "";
+    $BMI = "";
 
 
     // Formularverarbeitung (HTTP POST Request)
@@ -37,14 +38,32 @@
 
         // double-check: zuerst pruefen ob die Daten im Request enthalten sein, dann auslesen
         $name = isset($_POST['name']) ? $_POST['name'] : ""; //check if not null
-        $groesse = isset($_POST['groesse']) ? $_POST['groessel'] : "";
+        $groesse = isset($_POST['groesse']) ? $_POST['groesse'] : "";
         $messdatum = isset($_POST['messdatum']) ? $_POST['messdatum'] : "";
         $gewicht = isset($_POST['gewicht']) ? $_POST['gewicht'] : "";
 
 
         // Validierung der Daten und Ausgabe des Ergebnisses (an der aktuellen Stelle in der HTML-Seite)
-        if (validate($name, $email, $examDate, $subject, $grade)) {
+        if (validate($name, $gewicht, $groesse, $messdatum)) {
             echo "<p class='alert alert-success'>Die eingegebenen Daten sind in Ordnung!</p>";
+            $BMI = calculateBMI($gewicht,$groesse);
+            if($BMI < 18.5)
+            {
+                echo "<p class = 'alert alert-danger'>Ihr BMI beträgt $BMI. Sie sind untergewichtig";
+            }
+            else if($BMI < 25)
+            {
+                echo "<p class = 'alert alert-success'>Ihr BMI beträgt $BMI. Sie sind normalgewichtig";
+            }
+            else if($BMI < 30)
+            {
+                echo "<p class = 'alert alert-danger'>Ihr BMI beträgt $BMI. Sie sind übergewichtig";
+            }
+            else
+            {
+                echo "<p class = 'alert alert-danger'>Ihr BMI beträgt $BMI. Sie sind stark übergewichtig";
+            }
+
         } else {
             echo "<div class='alert alert-danger'><p>Die eingegebenen Daten sind fehlerhaft!</p><ul>";
             foreach ($errors as $key => $value) {
@@ -56,7 +75,7 @@
 
     ?>
     <form id="form_grade" action="index.php" method="post">
-        <
+
         <div class="row">
 
 
@@ -76,8 +95,8 @@
             <div class="col-sm-4 form-group">
                 <label for="Messdatum">Messdatum*</label>
                 <input type="date"
-                       name="Messdatum"
-                       class="form-control <?= isset($errors['Messdatum']) ? 'is-invalid' : '' ?>"
+                       name="messdatum"
+                       class="form-control <?= isset($errors['messdatum']) ? 'is-invalid' : '' ?>"
                        value="<?= htmlspecialchars($messdatum) ?>"
                        onchange="validateMessdatum(this)"
                        required="required"
@@ -101,8 +120,8 @@
 
                 <label for="Groesse">Größe (cm)*</label>
                 <input type="number"
-                       name="Groesse"
-                       class="form-control <?= isset($errors['Groesse']) ? 'is-invalid' : '' ?>"
+                       name="groesse"
+                       class="form-control <?= isset($errors['groesse']) ? 'is-invalid' : '' ?>"
                        value="<?= htmlspecialchars($groesse) ?>"
                        required="required"
                        min = "1"
@@ -115,7 +134,7 @@
 
                 <label for="Gewicht">Gewicht (kg)*</label>
                 <input type="number"
-                       name="Gewicht"
+                       name="gewicht"
                        class="form-control <?= isset($errors['gewicht']) ? 'is-invalid' : '' ?>"
                        value="<?= htmlspecialchars($gewicht) ?>"
                        min="1"
@@ -154,49 +173,7 @@
 
 
 
-
-
-
-
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
